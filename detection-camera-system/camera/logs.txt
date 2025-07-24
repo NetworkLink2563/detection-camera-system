@@ -1,0 +1,1 @@
+{"sourcepath":"C:/inetpub/wwwroot/Camera_Raw/CAM202412001/2025-07-01/pic_001/","currenttime":"20250701154925","beforetime":"20250701154725","futuretime":"20250701155025"}
