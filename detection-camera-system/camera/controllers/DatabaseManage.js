@@ -206,10 +206,17 @@ exports.checkDbConnection = async (req, res) => {
 }
 
 //check file system
+<<<<<<< HEAD
 exports.checkFS = async () =>  {
     const directoryPath = 'C:\\inetpub\\wwwroot\\detectionStreaming';
   try {
     const items = fs.readdirSync(directoryPath, { withFileTypes: true });
+=======
+exports.checkFS = async (dirPath) =>  {
+    const directoryPath = 'C:\\inetpub\\wwwroot\\detectionStreaming';
+  try {
+    const items = fs.readdirSync(dirPath, { withFileTypes: true });
+>>>>>>> c89b5cd ([streaming]: add fs functions to check folders count)
     const folders = items.filter(item => item.isDirectory());
     return folders.length;
   } catch (err) {
