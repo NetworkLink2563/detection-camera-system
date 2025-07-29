@@ -104,8 +104,17 @@
                     </div>
                     <div class="col-md-3 selectcam d-flex py-1" style="justify-content: flex-end;">
                         <select id="selectcam" onchange="selectCam()" class="form-select" aria-label="Default select example">
-                            <option value="0" selected="">เลือกล้อง</option>
-                            <option value="CAM202412001">กล้อง CAM202412001</option>
+                            <option value="0" selected="">เลือกกล้อง</option>
+                            <?php
+                            $subselectfolder = glob("../eventfolder/*");
+                            $subselectfolder = array_map("basename", $subselectfolder);
+                            ?>
+                            <?php
+                            foreach ($subselectfolder as $k => $v) {
+                            ?>
+                                <option value="<?= $v ?>"><?php echo "กล้อง {$v}"; ?></option>
+                            <?php }
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-4 selectdiv d-flex py-1" style="justify-content: center;">
