@@ -18,9 +18,9 @@ exports.getCameraStat = async (req, res) => {
                 item.isFile() && item.name.toLowerCase().endsWith('.ts')
             );
 
-            let status = '1';
+            let status = 1;
             if (tsFiles.length === 0 || tsFiles.length <= 3) {
-                status = '0';
+                status = 0;
             }
 
             cameraStat.push({
