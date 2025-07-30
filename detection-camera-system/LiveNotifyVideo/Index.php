@@ -159,7 +159,7 @@
         const BASE_URL = 'http://85.204.247.82';
         const PORT = '26300';
         const API_PATH = 'api/getCameraStat';
-        const CAMERA_STATS_API_URL = `${BASE_URL}:${PORT}/${API_PATH}`;
+        const CAMERA_STATS_API_URL = `${BASE_URL}:${PORT}/${API_PATH}?v=${Date.now()}`;
 
     
 
@@ -254,7 +254,7 @@
                 }
                 const data = await response.json();
 
-                console.log('API Camera Stats Response:', data); // เพิ่ม console.log เพื่อตรวจสอบ response
+                console.log('API Camera Stats Response:', data); 
                 if (data.msg === "Success" && Array.isArray(data.cameraStat)) {
                     return data.cameraStat;
                 } else {
