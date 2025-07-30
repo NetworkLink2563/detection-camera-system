@@ -941,10 +941,10 @@ const deleteOldDir = async () => {
 const cronDelDir = async () => {
     let msg = 'NodeCron is Running! : Delete file every 00:00 Asia/Bangkok timezone'
     console.log(`NodeCronFunct is Running!`)
-    const task = cron.schedule('0 0 * * *', () => {
+    const task = cron.schedule('0 0 * * *', async () => {
         const time = newDateTimeinCronFunct()
-        deleteOldRawDir()
-        deleteOldDir()
+        await deleteOldRawDir()
+        await deleteOldDir()
         // console.log(`Time now is: ${time}`)
         console.log(`NodeCron is Running! at ${time}`)
     }, {
