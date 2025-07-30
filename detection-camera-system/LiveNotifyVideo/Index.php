@@ -241,7 +241,14 @@
 
         async function fetchCameraStatusesFromAPI() {
             try {
-                const response = await fetch(CAMERA_STATS_API_URL);
+                const response = await fetch(CAMERA_STATS_API_URL, {
+
+                    headers: {
+                        
+                        'cache-control': 'no-cache'
+                    }
+                    
+                });
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -276,7 +283,9 @@
 
                 const apiStatus = parseInt(cameraData.status, 10);
 
-                const STREAMING_BASE_URL = 'http://www.centrecities.com:26080/detectionstreaming/'
+                const STREAMING_PORT = 26080
+
+                const STREAMING_BASE_URL = `${BASE_URL}:${STREAMING_PORT}/detectionstreaming`
 
                 const FULL_STREAMING_URL = `${STREAMING_BASE_URL}/${cameraName}`
 
@@ -374,7 +383,6 @@
                             </div>`;
                     } else {
              
-                        const isStreamActuallyReachable = await isStreamReachable(stream.streamUrl);
              
                             contentHtml = `
                                 <iframe src="${stream.streamUrl}"
