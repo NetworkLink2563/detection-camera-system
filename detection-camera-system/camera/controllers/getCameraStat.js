@@ -26,7 +26,7 @@ exports.getCameraStat = async (req, res) => {
             cameraStat.push({
                 camera: folderName,
                 tsFileCount: tsFiles.length,
-                status: status
+                status: Number(status)
             });
         });
 
