@@ -98,11 +98,11 @@
     <?php
     if (isset($_GET['param'])) {
         $getparam = $_GET['param'];
-        $urlimg = "/SnapShot/snappaging_.php?param={$getparam}";
-        $urlvdo = "/SnapShot/vdopaging_.php?param={$getparam}";
+        $urlimg = "../SnapShot/snappaging_.php?param={$getparam}";
+        $urlvdo = "../SnapShot/vdopaging_.php?param={$getparam}";
     } else {
-        $urlimg = "/SnapShot/snappaging_.php";
-        $urlvdo = "/SnapShot/vdopaging_.php";
+        $urlimg = "../SnapShot/snappaging_.php";
+        $urlvdo = "../SnapShot/vdopaging_.php";
         $getparam = '';
     }
     ?>
@@ -159,9 +159,6 @@
         const BASE_URL = 'http://85.204.247.82';
         const PORT = '26300';
         const API_PATH = 'api/getCameraStat';
-        const CAMERA_STATS_API_URL = `${BASE_URL}:${PORT}/${API_PATH}?v=${Date.now()}`;
-
-    
 
         const Calldata = async () => {
             if (!getparams) {
@@ -241,6 +238,7 @@
 
         async function fetchCameraStatusesFromAPI() {
             try {
+                const CAMERA_STATS_API_URL = `${BASE_URL}:${PORT}/${API_PATH}?v=${Date.now()}`;
                 const response = await fetch(CAMERA_STATS_API_URL, {
 
                     headers: {
