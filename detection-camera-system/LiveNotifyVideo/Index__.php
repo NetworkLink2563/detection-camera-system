@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>NetWorklink.Co.Ltd,</</title>
+    <title>NetWorklink.Co.Ltd,</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="fonts/font-kanit.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -502,11 +502,13 @@
         });
     </script>
 </body>
+<div style="position: fixed; bottom: 0; right: 0; width: 100%">
 <footer class="py-5 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white" style="letter-spacing: 1px;">Copyright &copy; NetWorklink.Co.Ltd,</p>
     </div>
 </footer>
+</div>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
