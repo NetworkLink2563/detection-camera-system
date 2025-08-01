@@ -10,7 +10,6 @@ const { join } = require('node:path')
 const fs = require('fs')
 const zlib = require("zlib")
 
-
 // const io = new Server(server, {
 //     cors: { origin: "*" }, // อนุญาตให้ทุกโดเมนเชื่อมต่อ WebSocket
 // });
@@ -25,33 +24,6 @@ app.use(morgan('dev'))
 //     res.send(username)
 // })
 
-
-
-
-app.get('/api/data', async (req, res) => {
-    try {
-
-        await sql.connect(config);
-        
-        const result = await sql.query`SELECT 1 AS status`;
-        
-        await sql.close();
-        
-        res.json({ 
-          success: true,
-          message: "Connection successful",
-          databaseStatus: result.recordset[0].status // ได้ค่า 1 แสดงว่าฐานข้อมูลตอบสนองปกติ
-        });
-        
-      } catch (err) {
-     
-        res.status(500).json({ 
-          success: false,
-          error: err.message,
-          details: "Failed to connect to SQL Server"
-        });
-      }
-  });
 
 // const bodyParser = require('body-parser');
 // ใช้ body-parser เพื่อรับข้อมูล JSON จาก POST
@@ -70,7 +42,6 @@ app.get("/dahua-event/", async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
-
 
 // SQL Server Configuration
 const { exec } = require('child_process');
