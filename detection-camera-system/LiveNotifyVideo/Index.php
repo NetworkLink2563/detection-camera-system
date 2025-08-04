@@ -92,6 +92,8 @@
         display: inline-block !important;
         visibility: visible !important;
     }
+
+    
 </style>
 
 <body>
@@ -472,7 +474,7 @@
         });
     </script>
 </body>
-<footer class="py-5 bg-dark">
+<footer class="py-2 bg-dark">
     <div class="container">
         <p class="m-0 text-center text-white" style="letter-spacing: 1px;">Copyright &copy; NetWorklink.Co.Ltd,</p>
     </div>
