@@ -149,7 +149,8 @@
             </div>
         </div>
 
-        <div id="streamContainer" class="mt-4 row g-3 container mx-auto flex justify-content-center" style="max-height: 500px;">
+        <div id="streamContainer" class="mt-4 row g-3 container mx-auto flex justify-content-center"
+            style="max-height: 500px;">
         </div>
 
     </section>
@@ -385,28 +386,66 @@
 
         }
 
-
-        let cameraStates = {}; 
+        let cameraStates = {};
 
         async function updateStreams() {
             const streamContainer = document.getElementById('streamContainer');
-            const selectedCheckboxes = Array.from(document.querySelectorAll('.form-check-input:checked'))
-                .map(cb => ({
-                    id: cb.id,
-                    name: cb.dataset.cameraName,
-                    streamUrl: cb.dataset.streamUrl,
-                    status: parseInt(cb.dataset.status, 10)
-                }));
+            const allCheckboxes = document.querySelectorAll('.form-check-input');
+            const selectedCheckboxes = Array.from(document.querySelectorAll('.form-check-input:checked'));
+            const selectedIds = new Set();
 
-            selectedCheckboxes.forEach(stream => {
-                const videoWrapper = document.querySelector(`#stream-${stream.id}`) ||
-                    createVideoWrapper(stream.id, stream.name);
-
-                if (cameraStates[stream.id] !== stream.status) {
-                    cameraStates[stream.id] = stream.status;
-                    updateCameraDisplay(videoWrapper, stream);
+            allCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedIds.add(checkbox.id);
                 }
             });
+
+            if (selectedIds.size === 0) {
+                streamContainer.innerHTML = `
+            <div id="no-camera-message" style="padding: 20px; color: #555; font-weight: bold; text-align: center;">
+                Please select at least one camera
+            </div>
+        `;
+                return;
+            } else {
+
+                const message = document.getElementById('no-camera-message');
+                if (message) {
+                    message.remove();
+                }
+            }
+
+            document.querySelectorAll('.video-wrapper').forEach(wrapper => {
+                const wrapperId = wrapper.id.replace('stream-', '');
+                if (!selectedIds.has(wrapperId)) {
+                    wrapper.remove();
+                    delete cameraStates[wrapperId];
+                }
+            });
+
+
+            allCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const stream = {
+                        id: checkbox.id,
+                        name: checkbox.dataset.cameraName,
+                        streamUrl: checkbox.dataset.streamUrl,
+                        status: parseInt(checkbox.dataset.status, 10)
+                    };
+
+                    let videoWrapper = document.querySelector(`#stream-${stream.id}`);
+
+                    if (!videoWrapper) {
+                        videoWrapper = createVideoWrapper(stream.id, stream.name);
+                    }
+
+                    if (cameraStates[stream.id] !== stream.status) {
+                        cameraStates[stream.id] = stream.status;
+                        updateCameraDisplay(videoWrapper, stream);
+                    }
+                }
+            });
+
         }
 
         function createVideoWrapper(id, name) {
@@ -500,6 +539,8 @@
             });
 
             await renderCameraDropdown();
+            await updateStreams();
+
 
         });
 
