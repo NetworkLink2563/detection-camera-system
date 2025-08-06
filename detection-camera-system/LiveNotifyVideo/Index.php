@@ -458,38 +458,81 @@
         }
 
         function updateCameraDisplay(wrapper, camera) {
+            wrapper.innerHTML = '';
+
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        padding: 2px 5px;
+        font-size: 12px;
+        z-index: 10;
+    `;
+            overlay.innerHTML = `
+        ${camera.name}
+        <span class="camera-status ${camera.status === 0 ? 'offline' : 'online'}"
+              style="display: inline-block; margin-left: 5px;"></span>
+    `;
+
+            wrapper.appendChild(overlay);
 
             if (camera.status === 0) {
-                wrapper.innerHTML = `
-           <div style="position: absolute; top: 0; left: 0;
-                                background-color: rgba(0,0,0,0.7); color: white;
-                                padding: 2px 5px; font-size: 12px; z-index: 10;">
-                        ${camera.name}
-                        <span class="camera-status offline"
-                            style="display: inline-block; margin-left: 5px;"></span>
-                    </div>
-                    <div style="width:100%; height:100%; background:#ccc; display:flex; 
-                                justify-content:center; align-items:center; color:#333;">
-                        Camera is not available
-                    </div>`;
+                const offline = document.createElement('div');
+                offline.style.cssText = `
+            width: 100%;
+            height: 100%;
+            background: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        `;
+                offline.textContent = 'Camera is not available';
+                wrapper.appendChild(offline);
             } else {
-                wrapper.innerHTML = `
-                    <div style="position: absolute; top: 0; left: 0;
-                                background-color: rgba(0,0,0,0.7); color: white;
-                                padding: 2px 5px; font-size: 12px; z-index: 10;">
-                        ${camera.name}
-                        <span class="camera-status online"
-                            style="display: inline-block; margin-left: 5px;"></span>
-                    </div>
-                    <iframe src="${camera.streamUrl}?t=${Date.now()}"
-                            width="100%"
-                            height="100%"
-                            frameborder="0"
-                            allowfullscreen
-                            sandbox="allow-scripts allow-same-origin"
-                            style="display: block;"></iframe>`;
+                const iframe = document.createElement('iframe');
+                iframe.src = `${camera.streamUrl}?t=${Date.now()}`;
+                iframe.width = '100%';
+                iframe.height = '100%';
+                iframe.frameBorder = '0';
+                iframe.allowFullscreen = true;
+                iframe.sandbox = 'allow-scripts allow-same-origin';
+                iframe.style.display = 'block';
+                iframe.style.opacity = '0';
+                iframe.style.transition = 'opacity 0.5s ease';
+
+                // เพิ่ม fallback ถ้าโหลด iframe ไม่ได้ใน 10 วินาที
+                const timeout = setTimeout(() => {
+                    iframe.remove();
+
+                    const error = document.createElement('div');
+                    error.style.cssText = `
+                width: 100%;
+                height: 100%;
+                background: #333;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            `;
+                    error.innerHTML = `<p style="font-size: 1.2em;">Failed to load video (timeout)</p>`;
+                    wrapper.appendChild(error);
+                }, 10000);
+
+                iframe.onload = () => {
+                    clearTimeout(timeout);
+                    iframe.style.opacity = '1';
+                };
+
+                wrapper.appendChild(iframe);
             }
         }
+
 
         setInterval(async () => {
             const apiCameraStats = await fetchCameraStatusesFromAPI();
