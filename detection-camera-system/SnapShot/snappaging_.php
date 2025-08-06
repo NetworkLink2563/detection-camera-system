@@ -53,19 +53,6 @@
     $cfdatas = json_decode($cfraw, true);
     $futuretimecf = $cfdatas['futuretime'];
     fclose($myfile);
-
-    if (isset($_GET['param'])) {
-        $getparam = $_GET['param'];
-        $urlimg = "/SnapShot/snappaging_.php?param={$getparam}";
-        $urlvdo = "/SnapShot/vdopaging_.php?param={$getparam}";
-        $urlstream = "../LiveNotifyVideo/index.php?param={$getparam}";
-    } else {
-        $getparam = 0;
-        $urlimg = "/SnapShot/snappaging_.php";
-        $urlvdo = "/SnapShot/vdopaging_.php";
-        $urlstream = "../LiveNotifyVideo/";
-        $getparam = '';
-    }
     ?>
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -77,9 +64,9 @@
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item bg-dark"><a class="nav-link" aria-current="page" href="<?= $urlstream ?>">Streamimg</a></li>
-                    <li class="nav-item bg-dark"><a class="nav-link active" href="<?= $urlimg; ?>">Snapshot</a></li>
-                    <li class="nav-item bg-dark"><a class="nav-link" href="<?= $urlvdo; ?>">Snap Videos</a></li>
+                    <li class="nav-item bg-dark"><a class="nav-link" aria-current="page" href="../LiveNotifyVideo/">Streamimg</a></li>
+                    <li class="nav-item bg-dark"><a class="nav-link active" href="/SnapShot/snappaging_.php">Snapshot</a></li>
+                    <li class="nav-item bg-dark"><a class="nav-link" href="/SnapShot/vdopaging_.php">Snap Videos</a></li>
                 </ul>
             </div>
         </div>

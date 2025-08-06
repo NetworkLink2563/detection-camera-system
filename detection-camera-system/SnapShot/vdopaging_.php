@@ -79,9 +79,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item bg-dark"><a class="nav-link" aria-current="page"
-                            href="<?= $urlstream ?>">Streamimg</a></li>
-                    <li class="nav-item bg-dark"><a class="nav-link" href="<?= $urlimg; ?>">Snapshot</a></li>
-                    <li class="nav-item bg-dark"><a class="nav-link active" href="<?= $urlvdo; ?>">Snap Videos</a></li>
+                            href="../LiveNotifyVideo/">Streamimg</a></li>
+                    <li class="nav-item bg-dark"><a class="nav-link" href="/SnapShot/snappaging_.php">Snapshot</a></li>
+                    <li class="nav-item bg-dark"><a class="nav-link active" href="/SnapShot/vdopaging_.php">Snap Videos</a></li>
                 </ul>
             </div>
         </div>
@@ -102,7 +102,7 @@
                 <!-- content -->
                 <div class="row justify-content-between align-items-center py-1">
                     <div class="col-md-3 d-flex py-1 btn-stream" style="justify-content: flex-start;">
-                        <button class="btn btn-md btn-secondary" onclick="location.href='./snappaging_.php'">Snapshot</button>
+                        <button class="btn btn-md btn-secondary" onclick="location.href='./snappaging_.php'">SNAPSHOT</button>
                     </div>
                     <div class="col-md-3 selectcam d-flex py-1" style="justify-content: flex-end;">
                         <select id="selectcam" onchange="selectCam()" class="form-select" aria-label="Default select example">
@@ -433,79 +433,79 @@
             }
         }
 
-        function paging(json) {
-            const items = json;
-            const itemsPerPage = 20;
-            let currentPage = 1;
+        // function paging(json) {
+        //     const items = json;
+        //     const itemsPerPage = 20;
+        //     let currentPage = 1;
 
-            function displayItems(page) {
-                const startIndex = (page - 1) * itemsPerPage;
-                const endIndex = startIndex + itemsPerPage;
-                const itemsToDisplay = items.slice(startIndex, endIndex);
+        //     function displayItems(page) {
+        //         const startIndex = (page - 1) * itemsPerPage;
+        //         const endIndex = startIndex + itemsPerPage;
+        //         const itemsToDisplay = items.slice(startIndex, endIndex);
 
-                const itemList = document.getElementById('vdodisplay');
-                itemList.innerHTML = "";
-                let vdodisplay = $('.vdodisplay');
-                itemsToDisplay.map(item => {
-                    let vdo = '';
-                    if (item == "X") {
-                        return false;
-                    }
-                    vdo += `<li class="vdobox col-md-3 p-0 text-center" > <video width="320" height="240" muted controls class="img-thumbnail"><source class="vdobox col-md-3 p-0" src="/eventfolder/<?= $getparam ?>/vdo/${item}" type="video/mp4"></video> </li>`;
-                    vdodisplay.append(vdo);
+        //         const itemList = document.getElementById('vdodisplay');
+        //         itemList.innerHTML = "";
+        //         let vdodisplay = $('.vdodisplay');
+        //         itemsToDisplay.map(item => {
+        //             let vdo = '';
+        //             if (item == "X") {
+        //                 return false;
+        //             }
+        //             vdo += `<li class="vdobox col-md-3 p-0 text-center" > <video width="320" height="240" muted controls class="img-thumbnail"><source class="vdobox col-md-3 p-0" src="/eventfolder/<?= $getparam ?>/vdo/${item}" type="video/mp4"></video> </li>`;
+        //             vdodisplay.append(vdo);
 
-                });
-                vdodisplay.fadeOut(100);
-                vdodisplay.fadeIn(400);
-            }
+        //         });
+        //         vdodisplay.fadeOut(100);
+        //         vdodisplay.fadeIn(400);
+        //     }
 
-            function displayPagination() {
-                const totalPages = Math.ceil(items.length / itemsPerPage);
-                const pagination = document.getElementById('pagination');
-                pagination.innerHTML = "";
+        //     function displayPagination() {
+        //         const totalPages = Math.ceil(items.length / itemsPerPage);
+        //         const pagination = document.getElementById('pagination');
+        //         pagination.innerHTML = "";
 
-                const prevPage = document.createElement('div');
-                prevPage.classList.add("page-item");
-                prevPage.innerHTML = '<a class="page-link" >Previous</a>';
-                prevPage.addEventListener('click', function() {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        updatePagination();
-                    }
-                });
-                pagination.appendChild(prevPage);
+        //         const prevPage = document.createElement('div');
+        //         prevPage.classList.add("page-item");
+        //         prevPage.innerHTML = '<a class="page-link" >Previous</a>';
+        //         prevPage.addEventListener('click', function() {
+        //             if (currentPage > 1) {
+        //                 currentPage--;
+        //                 updatePagination();
+        //             }
+        //         });
+        //         pagination.appendChild(prevPage);
 
-                for (let i = 1; i <= totalPages; i++) {
-                    const page = document.createElement('div');
-                    page.classList.add("page-item");
-                    page.classList.toggle('active', i === currentPage);
-                    page.innerHTML = `<a class="page-link" >${i}</a>`;
-                    page.addEventListener('click', function() {
-                        currentPage = i;
-                        updatePagination();
-                    });
-                    pagination.appendChild(page);
-                }
+        //         for (let i = 1; i <= totalPages; i++) {
+        //             const page = document.createElement('div');
+        //             page.classList.add("page-item");
+        //             page.classList.toggle('active', i === currentPage);
+        //             page.innerHTML = `<a class="page-link" >${i}</a>`;
+        //             page.addEventListener('click', function() {
+        //                 currentPage = i;
+        //                 updatePagination();
+        //             });
+        //             pagination.appendChild(page);
+        //         }
 
-                const nextPage = document.createElement('div');
-                nextPage.classList.add("page-item");
-                nextPage.innerHTML = '<a class="page-link" >Next</a>';
-                nextPage.addEventListener('click', function() {
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        updatePagination();
-                    }
-                });
-                pagination.appendChild(nextPage);
-            }
+        //         const nextPage = document.createElement('div');
+        //         nextPage.classList.add("page-item");
+        //         nextPage.innerHTML = '<a class="page-link" >Next</a>';
+        //         nextPage.addEventListener('click', function() {
+        //             if (currentPage < totalPages) {
+        //                 currentPage++;
+        //                 updatePagination();
+        //             }
+        //         });
+        //         pagination.appendChild(nextPage);
+        //     }
 
-            function updatePagination() {
-                displayItems(currentPage);
-                displayPagination();
-            }
+        //     function updatePagination() {
+        //         displayItems(currentPage);
+        //         displayPagination();
+        //     }
 
-            updatePagination();
-        }
+        //     updatePagination();
+        // }
     </script>
 </body>
 
