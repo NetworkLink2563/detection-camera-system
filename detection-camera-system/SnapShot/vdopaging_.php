@@ -385,7 +385,7 @@
                         let obj = jQuery.parseJSON(resp)
                         let vdonamex = $('.vdonamex')
 
-                        if (obj.vdonames == '' && obj.vdonamexs == '') {
+                        if (obj.vdonames == '') {
                             Swal.fire({
                                 title: "กำลังดึงข้อมูลวิดีโอ!",
                                 timer: 2000,
