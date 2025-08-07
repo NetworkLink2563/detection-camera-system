@@ -258,52 +258,52 @@
 
 
         async function fetchCameraStatusesFromAPI() {
-            try {
-                const response = await fetch(CAMERA_STATS_API_URL, {
+            // try {
+            //     const response = await fetch(CAMERA_STATS_API_URL, {
 
-                    headers: {
+            //         headers: {
 
-                        'cache-control': 'no-cache'
-                    }
-
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-
-                console.log('API Camera Stats Response:', data);
-                if (data.msg === "Success" && Array.isArray(data.cameraStat)) {
-                    return data.cameraStat;
-                } else {
-                    console.error('API returned an unexpected format or error:', data);
-                    return [];
-                }
-            } catch (error) {
-                console.error('Error fetching camera stats from API:', error);
-                return [];
-            }
-
-            // toggleState = toggleState === 0 ? 1 : 0;
-
-            // const data = {
-            //     msg: "Success",
-            //     cameraStat: [
-            //         {
-            //             camera: "detectionstreamingvdo1",
-            //             tsFileCount: 25,
-            //             status: toggleState
-            //         },
-            //         {
-            //             camera: "detectionstreamingvdo2",
-            //             tsFileCount: 25,
-            //             status: 1
+            //             'cache-control': 'no-cache'
             //         }
-            //     ]
-            // };
 
-            // console.log('Mock API Camera Stats Response:', data);
-            // return data.cameraStat;
+            //     });
+            //     if (!response.ok) {
+            //         throw new Error(`HTTP error! status: ${response.status}`);
+            //     }
+            //     const data = await response.json();
+
+            //     console.log('API Camera Stats Response:', data);
+            //     if (data.msg === "Success" && Array.isArray(data.cameraStat)) {
+            //         return data.cameraStat;
+            //     } else {
+            //         console.error('API returned an unexpected format or error:', data);
+            //         return [];
+            //     }
+            // } catch (error) {
+            //     console.error('Error fetching camera stats from API:', error);
+            //     return [];
+            // }
+
+            toggleState = toggleState === 0 ? 1 : 0;
+
+            const data = {
+                msg: "Success",
+                cameraStat: [
+                    {
+                        camera: "detectionstreamingvdo1",
+                        tsFileCount: 25,
+                        status: toggleState
+                    },
+                    {
+                        camera: "detectionstreamingvdo2",
+                        tsFileCount: 25,
+                        status: 1
+                    }
+                ]
+            };
+
+            console.log('Mock API Camera Stats Response:', data);
+            return data.cameraStat;
         }
 
         async function renderCameraDropdown() {
@@ -481,7 +481,7 @@
                         Camera is not available
                     </div>`;
 
-                wrapper.classList.remove('show');
+                wrapper.classList.add('show');
             } else {
 
                 wrapper.innerHTML = `
@@ -507,6 +507,8 @@
                 wrapper.classList.add('show');
             }
         }
+
+        
         setInterval(async () => {
             const apiCameraStats = await fetchCameraStatusesFromAPI();
             let hasChanged = false;
