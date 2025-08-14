@@ -36,233 +36,6 @@ if (isset($_GET['point']) && isset($_GET['val'])){
     ($Getvaldb == 1 ? $Getvaldb = "PowerOn" : ($Getvaldb == 2 ? $Getvaldb = "PowerOff" : null));
     ($Getval == 1 ? $Getval = "ไฟฟ้าปกติ" : ($Getval == 2 ? $Getval = "ไฟฟ้าขัดข้อง!" : null));
     ($Getval == 1 ? $badge = "ปกติ" : ($Getval == 2 ? $badge = "ขัดข้อง!" : null));
-    
-    function boardCastMessage($title, $point, $status, $lineApiEndpoint, $lineAccessToken, $urldest, $userID){
-        $url = $lineApiEndpoint;
-        if ($status == "ไฟฟ้าปกติ") {
-            $badge = "ปกติ";
-            $colorStat = "#5CB338";
-            $img = "https://www.drrrayong.com/VMS/assets/poweron.png";
-        } else if ($status == "ไฟฟ้าขัดข้อง!") {
-            $badge = "ขัดข้อง!";
-            $colorStat = "#BF3131";
-            $img = "https://www.drrrayong.com/VMS/assets/poweroff.png";
-        }
-
-        $data = [
-            "to" => $userID,
-            'messages' => [
-                [
-                    'type' => 'flex',
-                    'altText' => 'ข้อมูลเพิ่มเติม',
-                    'contents' => [
-                        'type' => 'bubble',
-                        "styles" => [
-                            "header" => [
-                                "backgroundColor" => "#FFFFFF"
-                            ],
-                            "body" => [
-                                "backgroundColor" => "#FFFFFF"
-                            ],
-                            "footer" => [
-                                "backgroundColor" => "#FFFFFF"
-                            ]
-                        ],
-                        "size" => "mega",
-                        "header" => [
-                            "type" => "box",
-                            "layout" => "vertical",
-                            "spacing" => "sm",
-                            "contents" => [
-                                [
-                                    "type" => "box",
-                                    "layout" => "horizontal",
-                                    "contents" => [
-                                        [
-                                            "type" => "text",
-                                            "text" => $badge,
-                                            "size" => "xs",
-                                            "color" => "#ffffff",
-                                            "align" => "center",
-                                            "gravity" => "center"
-                                        ]
-                                    ],
-                                    "backgroundColor" => $colorStat,
-                                    "paddingAll" => "2px",
-                                    "paddingStart" => "4px",
-                                    "paddingEnd" => "4px",
-                                    "flex" => 0,
-                                    "position" => "absolute",
-                                    "offsetStart" => "18px",
-                                    "offsetTop" => "18px",
-                                    "cornerRadius" => "100px",
-                                    "width" => "60px",
-                                    "height" => "25px"
-                                ],
-                                [
-                                    "type" => "text",
-                                    "text" => "แจ้งเตือน!",
-                                    "size" => "xxl",
-                                    "scaling" => true,
-                                    "weight" => "bold",
-                                    "wrap" => true,
-                                    "align" => "center"
-                                ],
-                                [
-                                    "type" => "text",
-                                    "text" => $title,
-                                    "size" => "lg",
-                                    "scaling" => true,
-                                    "wrap" => true,
-                                    "align" => "center"
-                                ],
-                                [
-                                    "type" => "separator"
-                                ]
-                            ]
-                        ],
-                        "hero" => [
-                            "type" => "image",
-                            "url" => $img,
-                            "size" => "full",
-                            "aspectRatio" => "2:1"
-                        ],
-                        'body' => [
-                            'type' => 'box',
-                            'layout' => 'vertical',
-                            "spacing" => "md",
-                            'contents' => [
-                                [
-                                    'type' => 'text',
-                                    'text' => "สถานที่",
-                                    "size" => "lg",
-                                    "align" => "center",
-                                    "scaling" => true,
-                                    "wrap" => true,
-                                    "weight" => "bold",
-
-                                ],
-                                [
-                                    'type' => 'text',
-                                    'text' => "หาดแม่รำพึงจุดที่ 1",
-                                    "size" => "lg",
-                                    "align" => "center",
-                                    "scaling" => true,
-                                    "wrap" => true,
-                                    "weight" => "bold",
-                                ],
-                                [
-                                    "type" => "separator"
-                                ],
-
-                                [
-                                    "type" => "box",
-                                    "layout" => "horizontal",
-                                    "spacing" => "md",
-                                    "contents" => [
-                                        [
-                                            'type' => 'text',
-                                            'text' => 'สถานะ',
-                                            "size" => "lg",
-                                            "align" => "center",
-                                            "scaling" => true,
-                                            "wrap" => true,
-                                            "weight" => "bold",
-                                        ],
-                                        [
-                                            "type" => "separator"
-                                        ],
-                                        [
-                                            'type' => 'text',
-                                            'text' => $status,
-                                            "size" => "lg",
-                                            "align" => "center",
-                                            "color" => $colorStat,
-                                            "scaling" => true,
-                                            "wrap" => true,
-                                            "weight" => "bold",
-                                        ],
-
-                                    ]
-                                ],
-                                [
-                                    "type" => "separator"
-                                ],
-                            ]
-
-                        ],
-                        "footer" => [
-                            "type" => "box",
-                            "layout" => "vertical",
-                            "contents" => [
-                                [
-                                    "type" => "separator"
-                                ],
-                                [
-                                    "type" => "button",
-                                    "style" => "primary",
-                                    "color" => "#412500",
-                                    "action" => [
-                                        "type" => "uri",
-                                        "label" => ">> คลิกเพื่อดูข้อมูลเพิ่มเติม <<",
-                                        "uri" => $urldest,
-                                    ]
-                                ]
-
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-
-        $post = json_encode($data);
-        $headers = [
-            'Content-Type: application/json',
-            'Authorization: Bearer ' . $lineAccessToken,
-        ];
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-        $result = curl_exec($ch);
-        $err = curl_error($ch);
-        curl_close($ch);
-
-        return $result;
-    }
-
-    function InsertDB($point, $Getvaldb, $val, $timestamp){
-        $datas = [];
-        $datas['point'] = $point;
-        $datas['status'] = $Getvaldb;
-        $datas['val'] = $val;
-        $datas['timestamp'] = $timestamp;
-
-        $point = $datas['point'];
-        $status = $datas['status'];
-        $val = $datas['val'];
-        $timestamp = $datas['timestamp'];
-
-        $url = "http://localhost:3000/api/powerlogs/{$point}/$Getvaldb/{$val}/{$timestamp}";
-        // echo $url;
-        $opts = array(
-            'http' =>
-            array(
-                'method'  => 'POST',
-                'header'  => 'Content-Type: application/x-www-form-urlencoded'
-            )
-        );
-        $context  = stream_context_create($opts);
-        $result = file_get_contents($url, false, $context);
-        return $result;
-    }
 
     $title = "ระบบเช็คกระแสไฟฟ้า";
     $point = "จุดที่: {$Getpoint}";
@@ -287,3 +60,233 @@ if (isset($_GET['point']) && isset($_GET['val'])){
 } else {
     echo "No Param";
 }
+
+function boardCastMessage($title, $point, $status, $lineApiEndpoint, $lineAccessToken, $urldest, $userID){
+    $url = $lineApiEndpoint;
+    if ($status == "ไฟฟ้าปกติ") {
+        $badge = "ปกติ";
+        $colorStat = "#5CB338";
+        $img = "https://www.centrecities.com/assets/icon/poweron.png";
+    } else if ($status == "ไฟฟ้าขัดข้อง!") {
+        $badge = "ขัดข้อง!";
+        $colorStat = "#BF3131";
+        $img = "https://www.centrecities.com/assets/icon/poweroff.png";
+    }
+
+    $data = [
+        "to" => $userID,
+        'messages' => [
+            [
+                'type' => 'flex',
+                'altText' => 'ข้อมูลเพิ่มเติม',
+                'contents' => [
+                    'type' => 'bubble',
+                    "styles" => [
+                        "header" => [
+                            "backgroundColor" => "#FFFFFF"
+                        ],
+                        "body" => [
+                            "backgroundColor" => "#FFFFFF"
+                        ],
+                        "footer" => [
+                            "backgroundColor" => "#FFFFFF"
+                        ]
+                    ],
+                    "size" => "mega",
+                    "header" => [
+                        "type" => "box",
+                        "layout" => "vertical",
+                        "spacing" => "sm",
+                        "contents" => [
+                            [
+                                "type" => "box",
+                                "layout" => "horizontal",
+                                "contents" => [
+                                    [
+                                        "type" => "text",
+                                        "text" => $badge,
+                                        "size" => "xs",
+                                        "color" => "#ffffff",
+                                        "align" => "center",
+                                        "gravity" => "center"
+                                    ]
+                                ],
+                                "backgroundColor" => $colorStat,
+                                "paddingAll" => "2px",
+                                "paddingStart" => "4px",
+                                "paddingEnd" => "4px",
+                                "flex" => 0,
+                                "position" => "absolute",
+                                "offsetStart" => "18px",
+                                "offsetTop" => "18px",
+                                "cornerRadius" => "100px",
+                                "width" => "60px",
+                                "height" => "25px"
+                            ],
+                            [
+                                "type" => "text",
+                                "text" => "แจ้งเตือน!",
+                                "size" => "xxl",
+                                "scaling" => true,
+                                "weight" => "bold",
+                                "wrap" => true,
+                                "align" => "center"
+                            ],
+                            [
+                                "type" => "text",
+                                "text" => $title,
+                                "size" => "lg",
+                                "scaling" => true,
+                                "wrap" => true,
+                                "align" => "center"
+                            ],
+                            [
+                                "type" => "separator"
+                            ]
+                        ]
+                    ],
+                    "hero" => [
+                        "type" => "image",
+                        "url" => $img,
+                        "size" => "full",
+                        "aspectRatio" => "2:1"
+                    ],
+                    'body' => [
+                        'type' => 'box',
+                        'layout' => 'vertical',
+                        "spacing" => "md",
+                        'contents' => [
+                            [
+                                'type' => 'text',
+                                'text' => "สถานที่",
+                                "size" => "lg",
+                                "align" => "center",
+                                "scaling" => true,
+                                "wrap" => true,
+                                "weight" => "bold",
+
+                            ],
+                            [
+                                'type' => 'text',
+                                'text' => "หาดแม่รำพึงจุดที่ 1",
+                                "size" => "lg",
+                                "align" => "center",
+                                "scaling" => true,
+                                "wrap" => true,
+                                "weight" => "bold",
+                            ],
+                            [
+                                "type" => "separator"
+                            ],
+
+                            [
+                                "type" => "box",
+                                "layout" => "horizontal",
+                                "spacing" => "md",
+                                "contents" => [
+                                    [
+                                        'type' => 'text',
+                                        'text' => 'สถานะ',
+                                        "size" => "lg",
+                                        "align" => "center",
+                                        "scaling" => true,
+                                        "wrap" => true,
+                                        "weight" => "bold",
+                                    ],
+                                    [
+                                        "type" => "separator"
+                                    ],
+                                    [
+                                        'type' => 'text',
+                                        'text' => $status,
+                                        "size" => "lg",
+                                        "align" => "center",
+                                        "color" => $colorStat,
+                                        "scaling" => true,
+                                        "wrap" => true,
+                                        "weight" => "bold",
+                                    ],
+
+                                ]
+                            ],
+                            [
+                                "type" => "separator"
+                            ],
+                        ]
+
+                    ],
+                    "footer" => [
+                        "type" => "box",
+                        "layout" => "vertical",
+                        "contents" => [
+                            [
+                                "type" => "separator"
+                            ],
+                            [
+                                "type" => "button",
+                                "style" => "primary",
+                                "color" => "#412500",
+                                "action" => [
+                                    "type" => "uri",
+                                    "label" => ">> คลิกเพื่อดูข้อมูลเพิ่มเติม <<",
+                                    "uri" => $urldest,
+                                ]
+                            ]
+
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ];
+
+    $post = json_encode($data);
+    $headers = [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $lineAccessToken,
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+    $result = curl_exec($ch);
+    $err = curl_error($ch);
+    curl_close($ch);
+
+    return $result;
+}
+
+function InsertDB($point, $Getvaldb, $val, $timestamp){
+    $datas = [];
+    $datas['point'] = $point;
+    $datas['status'] = $Getvaldb;
+    $datas['val'] = $val;
+    $datas['timestamp'] = $timestamp;
+
+    $point = $datas['point'];
+    $status = $datas['status'];
+    $val = $datas['val'];
+    $timestamp = $datas['timestamp'];
+
+    $url = "http://localhost:3000/api/powerlogs/{$point}/$Getvaldb/{$val}/{$timestamp}";
+    // echo $url;
+    $opts = array(
+        'http' =>
+        array(
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/x-www-form-urlencoded'
+        )
+    );
+    $context  = stream_context_create($opts);
+    $result = file_get_contents($url, false, $context);
+    return $result;
+}
+
+http_response_code(200);
+exit;
