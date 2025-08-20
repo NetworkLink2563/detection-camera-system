@@ -339,6 +339,7 @@
                 const htmlId = `camera-${cameraName.replace(/[^a-zA-Z0-9]/g, '-')}`;
                 const statusClass = apiStatus === 1 ? 'online' : 'offline';
 
+                const isChecked = 'checked';
 
                 const cameraItem = document.createElement('div');
                 cameraItem.className = 'camera-item form-check';
@@ -348,10 +349,13 @@
                         id="${htmlId}"
                         data-camera-name="${cameraName}"
                         data-stream-url="${FULL_STREAMING_URL}"
-                        data-status="${apiStatus}"
+                        data-status="${apiStatus}          
+                        "
+                        ${isChecked}
                         > <label class="form-check-label camera-label"
                         for="${htmlId}">${cameraName}</label> <span id="${htmlId}-status"
-                        class="camera-status ${statusClass}"></span> `;
+                        class="camera-status ${statusClass}"></span> 
+                        `;
 
                 dropdown.appendChild(cameraItem);
             });
